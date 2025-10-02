@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/webp" sizes="96x96" href="Images/Chatbot-Favicon.jpg">
+</head>
+
+<body>
+    <header class="header"><h1>Gemini AI Chatbot</h1></header>
+
+    <div class="chat-container">
+
+        <div id="chat-window">
+            <div class="ai-bubble chat-bubble">Hello! I am an AI chatbot powered by Google Gemini. Ask me anything!</div>
+        </div>
+
+        <div class="input-area">
+            <input id="user-input" type="text" placeholder="Type your message..." autocomplete="off" onkeypress="if(event.key==='Enter') sendMessage()">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+        </div>
+
+    </div>
+
+    <footer class="footer"><p>&copy; 2025 Gemini AI Chatbot — Powered by Google Gemini</p></footer>
+<script>
+
+    const chatWindow = document.getElementById('chat-window');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    //add a message to the chat window
+    function addMessage(sender, text)
+    {
+        const msg = document.createElement('div');
+
+        if (sender === 'user')
+            msg.className = 'chat-bubble user-bubble';
+
+        else if (sender === 'ai')
+
+            msg.className = 'chat-bubble ai-bubble';
+        else
+            msg.className = 'chat-bubble error-bubble';
+
+        msg.innerText = text;
+        chatWindow.appendChild(msg);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    //send message to backend and get AI response
+    async function askAI(prompt)
+    {
+        addMessage('ai', '...'); //show loading dots
+
+        sendButton.disabled = true;
+        userInput.disabled = true;
+
+        try
+        {
+            const res = await fetch('/api/chat', 
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: prompt })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok)
+            {
+                throw new Error(data.error || 'Server error');
+            }
+
+            //replace last AI message (loading) with actual response
+            chatWindow.lastChild.innerText = data.text;
+        }
+
+        catch (err)
+        {
+            chatWindow.lastChild.className = 'chat-bubble error-bubble';
+            chatWindow.lastChild.innerText = 'Chat Error: ' + err.message;
+        }
+
+        finally
+        {
+            sendButton.disabled = false;
+            userInput.disabled = false;
+            userInput.focus();
+        }
+    }
+
+    //handle user sending a message
+    function sendMessage()
+    {
+        const msg = userInput.value.trim();
+
+        if (msg === '')
+        {
+            return;
+        }
+
+        addMessage('user', msg); //show user message
+        userInput.value = '';
+        askAI(msg); //get AI response
+    }
+</script>
+</body>
+</html>
