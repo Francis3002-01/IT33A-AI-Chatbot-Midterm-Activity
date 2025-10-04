@@ -61,6 +61,7 @@ body {
 #chat-window {
     flex-grow: 1;
     padding: 1rem;
+    padding-bottom: 1.5rem; 
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -150,8 +151,15 @@ body {
 @media (max-width: 480px) 
 {
     .chat-container {
-        height: calc(100vh - 8rem); /* header + footer */
-        margin: 0.5rem;
+        height: calc(100vh - 8rem); 
+        display: flex;
+        flex-direction: column;
+    }
+
+    #chat-window {
+        max-height: calc(100% - 3.5rem); 
+        overflow-y: auto;
+        padding-bottom: 1.5rem;
     }
 
     .chat-bubble {
@@ -163,8 +171,8 @@ body {
         font-size: 0.9rem;
     }
 
-     .input-area {
-        margin-top: auto; /* keeps input at the bottom */
+    .input-area {
+        margin-top: auto; 
         padding: 0.5rem;
     }
 }
