@@ -175,4 +175,9 @@ body {
         margin-top: auto; 
         padding: 0.5rem;
     }
+
+    .footer {
+        position: relative; 
+        text-align: center;
+    }
 }
