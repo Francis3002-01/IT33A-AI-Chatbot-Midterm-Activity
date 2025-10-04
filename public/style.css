@@ -7,8 +7,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: whitesmoke;
-    padding-top: 4rem;
-    padding-bottom: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,35 +23,35 @@ body {
     align-items: center;
     background-color: MidnightBlue;
     color: white;
-    z-index: 20;
-    position: fixed;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .header {
+    position: fixed;
     top: 0;
+    left: 0;
     height: 4rem;
+    z-index: 20;
 }
 
 .footer {
-    bottom: 0;
     height: 3rem;
     font-size: 0.875rem;
     color: white;
+    margin-top: auto;
 }
 
 /* --- Chat Container --- */
 .chat-container {
-    width: 95%;
-    max-width: 36rem;
-    background-color: white;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    height: calc(100vh - 9rem);
-    margin: 1rem auto;
+    width: 95%;
+    max-width: 36rem;
+    margin: 5rem auto 0.5rem auto;
     border: 2px solid black;
+    background-color: white;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.05);
+    height: calc(100vh - 4rem - 3rem - 2rem); 
 }
 
 /* --- Chat Window --- */
@@ -149,11 +147,11 @@ body {
 {
     .chat-container {
         height: calc(100vh - 8rem);
-        margin: 0.5rem;
+        margin: 4.5rem 0.25rem 0.rem 0.25rem;
     }
 
     .chat-bubble {
-        max-width: 95%;
+        max-width: 100%;
     }
 
     #send-button, #user-input {
